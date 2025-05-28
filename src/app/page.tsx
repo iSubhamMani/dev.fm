@@ -10,13 +10,14 @@ import {
   Zap,
   ArrowRight,
   CheckCircle,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function DevFmLanding() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
-      <nav className="hidden sm:flex w-full gap-10 items-center justify-center p-4 fixed top-0 bg-transparent/75 z-50 backdrop-blur-sm">
+    <div className="min-h-screen bg-gradient-to-br from-black via-neutral-900 to-black text-white relative overflow-hidden">
+      <nav className="border-b border-white/5 hidden sm:flex w-full gap-10 items-center justify-center p-4 fixed top-0 bg-transparent/75 z-50 backdrop-blur-sm">
         <Link
           className="hover:text-pink-300 border-b border-b-pink-300"
           href={"#dev.fm"}
@@ -93,28 +94,35 @@ export default function DevFmLanding() {
             knowledge with the dev community in a whole new way.
           </p>
 
-          <Button className="bg-white cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
+          <Button className="bg-white font-medium cursor-pointer text-pink-600 hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
             <Github className="h-6 w-6" />
             Login with GitHub
           </Button>
+          <p className="text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-pink-400 mt-10">
+            Learn More
+            <ChevronDown className="animate-bounce mt-1 inline ml-2" />
+          </p>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 relative">
+      <section
+        id="features"
+        className="py-20 px-4 relative border-t border-white/5"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-cyan-500">
               Features Built for Developers
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
               Everything you need to create, edit, and share your developer
               podcasts
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Mic className="h-8 w-8 text-white" />
@@ -122,14 +130,14 @@ export default function DevFmLanding() {
                 <h3 className="text-xl font-bold mb-4 text-cyan-400">
                   AI-Powered Generation
                 </h3>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   Generate podcasts from text, project summaries, or technical
                   documentation using advanced AI
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Share2 className="h-8 w-8 text-white" />
@@ -137,14 +145,14 @@ export default function DevFmLanding() {
                 <h3 className="text-xl font-bold mb-4 text-purple-400">
                   Dev Community Sharing
                 </h3>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   Share your podcasts directly with the developer community and
                   discover content from fellow devs
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Edit3 className="h-8 w-8 text-white" />
@@ -152,7 +160,7 @@ export default function DevFmLanding() {
                 <h3 className="text-xl font-bold mb-4 text-green-400">
                   Built-in Audio Editor
                 </h3>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   Fine-tune your podcasts with our integrated audio editor
                   designed for developers
                 </p>
@@ -163,7 +171,7 @@ export default function DevFmLanding() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4 bg-slate-900/30">
+      <section id="how-it-works" className="py-20 px-4 border-y border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
@@ -279,8 +287,8 @@ export default function DevFmLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10" />
+      <section className="py-20 px-4 relative border-y border-white/5 ">
+        <div className="absolute inset-0" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Start Creating Your Devcast Now

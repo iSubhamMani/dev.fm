@@ -185,17 +185,20 @@
   100% {
     transform: translateY(0px) translateX(0px);
   }
-  50% {
+  25% {
     transform: translateY(-80px) translateX(-120px) rotate(-45deg);
+  }
+  75% {
+    transform: translateY(80px) translateX(120px) rotate(-45deg);
   }
 }
 
 .animate-orb-1 {
-  animation: float-orb 10s ease-in-out infinite;
+  animation: float-orb 20s ease-in-out infinite;
 }
 
 .animate-orb-2 {
-  animation: float-orb 10s 3s ease-in-out infinite;
+  animation: float-orb 20s 3s ease-in-out infinite;
 }
 
 @keyframes fadeAndPullUp {
