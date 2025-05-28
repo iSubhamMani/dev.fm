@@ -1,3 +1,4 @@
+import { WordRotate } from "@/components/magicui/word-rotate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -82,9 +83,18 @@ export default function DevFmLanding() {
                 </defs>
               </svg>
             </div>
-            <p className="fade-pullup-1 text-balance text-lg md:text-2xl text-green-300 mx-2 mt-6 sm:m-6 font-bold">
-              For devs who have something to say
+            <p className="fade-pullup-1 text-balance text-lg md:text-3xl text-green-300 mx-2 mt-6 font-bold">
+              For devs who
             </p>
+            <WordRotate
+              className="text-lg md:text-3xl text-pink-300 font-bold"
+              words={[
+                "want to commit ideas",
+                "debug out loud",
+                "have more opinions than tabs open",
+              ]}
+              duration={4000}
+            />
           </div>
 
           <p className="fade-pullup-2 text-sm sm:text-base md:text-xl text-white mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -122,7 +132,7 @@ export default function DevFmLanding() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
+            <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Mic className="h-8 w-8 text-white" />
@@ -137,7 +147,7 @@ export default function DevFmLanding() {
               </CardContent>
             </Card>
 
-            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
+            <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Share2 className="h-8 w-8 text-white" />
@@ -152,7 +162,7 @@ export default function DevFmLanding() {
               </CardContent>
             </Card>
 
-            <Card className="bg-transparent border border-pink-100 shadow-md shadow-pink-300 transition-all duration-300 group">
+            <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Edit3 className="h-8 w-8 text-white" />
@@ -263,7 +273,7 @@ export default function DevFmLanding() {
             ].map((example, index) => (
               <Card
                 key={index}
-                className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group"
+                className=" transition-all duration-300 group bg-transparent border border-white/10 shadow-lg shadow-neutral-900"
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
