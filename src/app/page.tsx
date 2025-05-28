@@ -1,102 +1,347 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Github,
+  Mic,
+  Share2,
+  Edit3,
+  Play,
+  Users,
+  Zap,
+  ArrowRight,
+  CheckCircle,
+} from "lucide-react";
+import Link from "next/link";
 
-export default function Home() {
+export default function DevFmLanding() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+      <nav className="hidden sm:flex w-full gap-10 items-center justify-center p-4 fixed top-0 bg-transparent/75 z-50 backdrop-blur-sm">
+        <Link
+          className="hover:text-pink-300 border-b border-b-pink-300"
+          href={"#dev.fm"}
+        >
+          dev.fm
+        </Link>
+        <Link className="hover:text-pink-300" href={"#features"}>
+          Features
+        </Link>
+        <Link className="hover:text-pink-300" href={"#how-it-works"}>
+          How it works
+        </Link>
+      </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section
+        id="dev.fm"
+        className="relative min-h-screen flex items-center justify-center px-4 "
+      >
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black via-neutral-900 to-black" />
+          {/* Gradient Orbs */}
+          <div className="animate-orb-1 absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl" />
+          <div className="animate-orb-2 absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+        {/* Hero Content */}
+        <div className="relative z-10 text-center max-w-4xl mx-auto">
+          <div className="mb-8">
+            <div className="relative inline-block">
+              <h1 className="fade-pullup text-5xl md:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 font-mono">
+                dev.fm
+              </h1>
+              {/* Hand-drawn underline */}
+              <svg
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-full h-4"
+                viewBox="0 0 300 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 15C50 12 100 8 150 10C200 12 250 16 290 14"
+                  stroke="url(#underlineGradient)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  fill="none"
+                  className="animate-draw-underline"
+                />
+                <defs>
+                  <linearGradient
+                    id="underlineGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor="#22d3ee" />
+                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <p className="fade-pullup-1 text-balance text-lg md:text-2xl text-green-300 mx-2 mt-6 sm:m-6 font-bold">
+              For devs who have something to say
+            </p>
+          </div>
+
+          <p className="fade-pullup-2 text-sm sm:text-base md:text-xl text-white mb-8 max-w-2xl mx-auto leading-relaxed">
+            Transform your project ideas, technical insights, and developer
+            thoughts into engaging{" "}
+            <span className="text-yellow-400">audio podcasts</span>. Share your
+            knowledge with the dev community in a whole new way.
+          </p>
+
+          <Button className="bg-white cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
+            <Github className="h-6 w-6" />
+            Login with GitHub
+          </Button>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 px-4 relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+              Features Built for Developers
+            </h2>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+              Everything you need to create, edit, and share your developer
+              podcasts
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Mic className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 text-cyan-400">
+                  AI-Powered Generation
+                </h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Generate podcasts from text, project summaries, or technical
+                  documentation using advanced AI
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Share2 className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 text-purple-400">
+                  Dev Community Sharing
+                </h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Share your podcasts directly with the developer community and
+                  discover content from fellow devs
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Edit3 className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 text-green-400">
+                  Built-in Audio Editor
+                </h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Fine-tune your podcasts with our integrated audio editor
+                  designed for developers
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 px-4 bg-slate-900/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+              How It Works
+            </h2>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+              From idea to podcast in just a few simple steps
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Github,
+                title: "Connect GitHub",
+                desc: "Link your GitHub account to get started",
+                color: "from-cyan-500 to-blue-500",
+              },
+              {
+                icon: Edit3,
+                title: "Input Content",
+                desc: "Paste your project README, blog post, or technical notes",
+                color: "from-purple-500 to-pink-500",
+              },
+              {
+                icon: Zap,
+                title: "AI Generation",
+                desc: "Our AI transforms your content into engaging podcast script",
+                color: "from-green-500 to-emerald-500",
+              },
+              {
+                icon: Play,
+                title: "Publish & Share",
+                desc: "Review, edit, and share your podcast with the community",
+                color: "from-pink-500 to-purple-500",
+              },
+            ].map((step, index) => (
+              <div key={index} className="text-center group">
+                <div
+                  className={`w-20 h-20 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <step.icon className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-white">
+                  {step.title}
+                </h3>
+                <p className="text-slate-400 leading-relaxed">{step.desc}</p>
+                {index < 3 && (
+                  <ArrowRight className="h-6 w-6 text-slate-600 mx-auto mt-6 hidden md:block" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community Examples Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+              Join the Developer Community
+            </h2>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+              See what fellow developers are creating and sharing
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "React Hooks Deep Dive",
+                author: "@sarah_dev",
+                topic: "Frontend",
+                plays: "2.3k",
+              },
+              {
+                title: "Building Scalable APIs",
+                author: "@mike_backend",
+                topic: "Backend",
+                plays: "1.8k",
+              },
+              {
+                title: "ML Model Deployment",
+                author: "@ai_researcher",
+                topic: "Machine Learning",
+                plays: "3.1k",
+              },
+            ].map((example, index) => (
+              <Card
+                key={index}
+                className="bg-slate-900/50 border-slate-800 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full">
+                      {example.topic}
+                    </span>
+                    <div className="flex items-center text-slate-400 text-sm">
+                      <Play className="h-4 w-4 mr-1" />
+                      {example.plays}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-bold mb-2 text-white group-hover:text-cyan-400 transition-colors">
+                    {example.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm">by {example.author}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Start Creating Your Devcast Now
+          </h2>
+          <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+            Join thousands of developers sharing their knowledge through
+            podcasts. Your next great idea deserves to be heard.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105">
+              <Github className="mr-3 h-6 w-6" />
+              Get Started with GitHub
+            </Button>
+            <Button
+              variant="outline"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-6 text-lg rounded-xl"
+            >
+              <Users className="mr-3 h-5 w-5" />
+              Explore Community
+            </Button>
+          </div>
+
+          <div className="flex items-center justify-center mt-8 text-slate-400 text-sm">
+            <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
+            Free to start • No credit card required
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-4 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent font-mono">
+                dev.fm
+              </h3>
+              <p className="text-slate-400 text-sm mt-1">
+                for devs who have something to say
+              </p>
+            </div>
+            <div className="flex space-x-6 text-slate-400">
+              <Link href="#" className="hover:text-cyan-400 transition-colors">
+                About
+              </Link>
+              <Link href="#" className="hover:text-cyan-400 transition-colors">
+                Community
+              </Link>
+              <Link href="#" className="hover:text-cyan-400 transition-colors">
+                API
+              </Link>
+              <Link href="#" className="hover:text-cyan-400 transition-colors">
+                Support
+              </Link>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
+            © 2024 dev.fm. Built by developers, for developers.
+          </div>
+        </div>
       </footer>
     </div>
   );
