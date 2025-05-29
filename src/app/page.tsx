@@ -7,7 +7,6 @@ import {
   Share2,
   Edit3,
   Play,
-  Users,
   Zap,
   ArrowRight,
   CheckCircle,
@@ -100,12 +99,12 @@ export default function DevFmLanding() {
           <div className="relative outline outline-white/10 shadow-[0_0_6px_#f472b6] rounded-2xl p-6 mb-8 bg-black/20 backdrop-blur-xl max-w-xl mx-auto">
             <p className="text-balance fade-pullup-2 text-sm sm:text-base md:text-xl text-white leading-relaxed">
               Turn your ideas and insights into engaging{" "}
-              <span className="text-yellow-400">audio podcasts</span>. Share
-              your voice with the dev community.
+              <span className="text-blue-400">audio podcasts.</span> Share your
+              voice with the dev community.
             </p>
           </div>
 
-          <Button className="bg-white font-medium cursor-pointer text-pink-600 hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
+          <Button className="bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
             <Github className="h-6 w-6" />
             Login with GitHub
           </Button>
@@ -119,7 +118,7 @@ export default function DevFmLanding() {
       {/* Features Section */}
       <section
         id="features"
-        className="py-20 px-4 relative border-t border-white/5"
+        className="py-12 md:py-20 px-4 relative border-t border-white/5"
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -132,16 +131,16 @@ export default function DevFmLanding() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Mic className="h-8 w-8 text-white" />
+              <CardContent className="p-6 md:p-8 text-center">
+                <div className="size-12 md:size-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Mic className="size-6 md:size-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-cyan-400">
+                <h3 className="text-lg md:text-xl font-bold mb-4 text-cyan-400">
                   AI-Powered Generation
                 </h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-sm md:text-base">
                   Generate podcasts from text, project summaries, or technical
                   documentation using advanced AI
                 </p>
@@ -149,9 +148,9 @@ export default function DevFmLanding() {
             </Card>
 
             <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Share2 className="h-8 w-8 text-white" />
+              <CardContent className="p-6 md:p-8 text-center">
+                <div className="size-12 md:size-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Share2 className="size-6 md:size-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-purple-400">
                   Dev Community Sharing
@@ -164,9 +163,9 @@ export default function DevFmLanding() {
             </Card>
 
             <Card className="bg-transparent border border-white/10 shadow-lg shadow-neutral-900 transition-all duration-300 group">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Edit3 className="h-8 w-8 text-white" />
+              <CardContent className="p-6 md:p-8 text-center">
+                <div className="size-12 md:size-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Edit3 className="size-6 md:size-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-green-400">
                   Built-in Audio Editor
@@ -182,13 +181,16 @@ export default function DevFmLanding() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4 border-y border-white/5">
+      <section
+        id="how-it-works"
+        className="py-12 md:py-20 px-4 border-y border-white/5"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
               How It Works
             </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-neutral-300 max-w-2xl mx-auto">
               From idea to podcast in just a few simple steps
             </p>
           </div>
@@ -199,7 +201,7 @@ export default function DevFmLanding() {
                 icon: Github,
                 title: "Connect GitHub",
                 desc: "Link your GitHub account to get started",
-                color: "from-cyan-500 to-blue-500",
+                color: "from-neutral-700 to-neutral-800",
               },
               {
                 icon: Edit3,
@@ -222,16 +224,18 @@ export default function DevFmLanding() {
             ].map((step, index) => (
               <div key={index} className="text-center group">
                 <div
-                  className={`w-20 h-20 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-16 h-16 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <step.icon className="h-10 w-10 text-white" />
+                  <step.icon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-white">
                   {step.title}
                 </h3>
-                <p className="text-slate-400 leading-relaxed">{step.desc}</p>
-                {index < 3 && (
-                  <ArrowRight className="h-6 w-6 text-slate-600 mx-auto mt-6 hidden md:block" />
+                <p className="text-neutral-300 leading-relaxed">{step.desc}</p>
+                {index < 3 ? (
+                  <ArrowRight className="h-6 w-6 text-neutral-300 mx-auto mt-6 hidden md:block" />
+                ) : (
+                  <CheckCircle className="h-6 w-6 text-green-400 mx-auto mt-6 hidden md:block" />
                 )}
               </div>
             ))}
@@ -240,7 +244,7 @@ export default function DevFmLanding() {
       </section>
 
       {/* Community Examples Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 md:py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
@@ -298,34 +302,22 @@ export default function DevFmLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 relative border-y border-white/5 ">
+      <section className="py-12 md:py-20 px-4 relative border-y border-white/5 ">
         <div className="absolute inset-0" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Start Creating Your Devcast Now
           </h2>
-          <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
             Join thousands of developers sharing their knowledge through
             podcasts. Your next great idea deserves to be heard.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105">
-              <Github className="mr-3 h-6 w-6" />
-              Get Started with GitHub
+            <Button className="bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
+              <Github className="h-6 w-6" />
+              Login with GitHub
             </Button>
-            <Button
-              variant="outline"
-              className="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-6 text-lg rounded-xl"
-            >
-              <Users className="mr-3 h-5 w-5" />
-              Explore Community
-            </Button>
-          </div>
-
-          <div className="flex items-center justify-center mt-8 text-slate-400 text-sm">
-            <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-            Free to start • No credit card required
           </div>
         </div>
       </section>
@@ -338,27 +330,19 @@ export default function DevFmLanding() {
               <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent font-mono">
                 dev.fm
               </h3>
-              <p className="text-slate-400 text-sm mt-1">
-                for devs who have something to say
-              </p>
             </div>
             <div className="flex space-x-6 text-slate-400">
-              <Link href="#" className="hover:text-cyan-400 transition-colors">
-                About
+              <Link href="#" className="hover:text-pink-400 transition-colors">
+                X
               </Link>
-              <Link href="#" className="hover:text-cyan-400 transition-colors">
-                Community
-              </Link>
-              <Link href="#" className="hover:text-cyan-400 transition-colors">
-                API
-              </Link>
-              <Link href="#" className="hover:text-cyan-400 transition-colors">
-                Support
+              <Link href="#" className="hover:text-pink-400 transition-colors">
+                Instagram
               </Link>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-            © 2024 dev.fm. Built by developers, for developers.
+          <div className="mt-8 pt-8 border-t border-slate-800 text-center text-neutral-300 text-sm">
+            © {new Date().getFullYear()} dev.fm. Built by a developer, for
+            developers.
           </div>
         </div>
       </footer>
