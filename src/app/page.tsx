@@ -87,7 +87,7 @@ export default function DevFmLanding() {
               For devs who
             </p>
             <WordRotate
-              className="text-lg md:text-3xl text-pink-300 font-bold"
+              className="text-lg md:text-3xl text-neutral-200 font-bold"
               words={[
                 "want to commit ideas",
                 "debug out loud",
@@ -97,12 +97,13 @@ export default function DevFmLanding() {
             />
           </div>
 
-          <p className="fade-pullup-2 text-sm sm:text-base md:text-xl text-white mb-8 max-w-2xl mx-auto leading-relaxed">
-            Transform your project ideas, technical insights, and developer
-            thoughts into engaging{" "}
-            <span className="text-yellow-400">audio podcasts</span>. Share your
-            knowledge with the dev community in a whole new way.
-          </p>
+          <div className="relative outline outline-white/10 shadow-[0_0_6px_#f472b6] rounded-2xl p-6 mb-8 bg-black/20 backdrop-blur-xl max-w-xl mx-auto">
+            <p className="text-balance fade-pullup-2 text-sm sm:text-base md:text-xl text-white leading-relaxed">
+              Turn your ideas and insights into engaging{" "}
+              <span className="text-yellow-400">audio podcasts</span>. Share
+              your voice with the dev community.
+            </p>
+          </div>
 
           <Button className="bg-white font-medium cursor-pointer text-pink-600 hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
             <Github className="h-6 w-6" />
