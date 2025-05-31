@@ -64,8 +64,8 @@ export default function DevFmLanding() {
             <p className="font-bold text-balance fade-pullup-2 text-4xl sm:text-5xl md:text-7xl text-white leading-tight">
               Turn your ideas and insights into engaging{" "}
               <span className="text-white relative text-glow">
-                audio podcasts.
-                <svg
+                audio podcasts
+                {/* <svg
                   className="absolute -bottom-1 left-0 w-full h-[3px]"
                   viewBox="0 0 100 3"
                   preserveAspectRatio="none"
@@ -95,7 +95,7 @@ export default function DevFmLanding() {
                     strokeWidth="3"
                     className="animate-draw-line"
                   />
-                </svg>
+                </svg>*/}
               </span>
             </p>
             {/* Hand-drawn underline */}
@@ -117,7 +117,7 @@ export default function DevFmLanding() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 items-center justify-center mt-10">
-            <p className="border border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
+            <p className="border bg-neutral-900 border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
               <ChevronRight className="inline mr-1 text-pink-400" />
               Continue with GitHub
             </p>
