@@ -11,82 +11,102 @@ import {
   ArrowRight,
   CheckCircle,
   ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function DevFmLanding() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-neutral-900 to-black text-white relative overflow-hidden">
-      <nav className="border-b border-white/5 hidden sm:flex w-full gap-10 items-center justify-center p-4 fixed top-0 bg-transparent/75 z-50 backdrop-blur-sm">
-        <Link
-          className="hover:text-pink-300 border-b border-b-pink-300"
-          href={"#dev.fm"}
-        >
-          dev.fm
-        </Link>
-        <Link className="hover:text-pink-300" href={"#features"}>
-          Features
-        </Link>
-        <Link className="hover:text-pink-300" href={"#how-it-works"}>
-          How it works
-        </Link>
+      <nav className="border-b border-white/5 fixed w-full top-0 bg-transparent/75 z-50 backdrop-blur-sm">
+        <div className="max-w-7xl w-full mx-auto flex gap-10 justify-start sm:justify-between items-center p-4">
+          <Link href={"#dev.fm"}>
+            <h1 className="fade-pullup text-xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-mono">
+              dev.fm
+            </h1>
+          </Link>
+          <div className="flex gap-10 items-center">
+            <Link
+              className="hover:text-pink-300 text-xs sm:text-sm"
+              href={"#features"}
+            >
+              Features
+            </Link>
+            <Link
+              className="hover:text-pink-300 text-xs sm:text-sm"
+              href={"#how-it-works"}
+            >
+              How it works
+            </Link>
+          </div>
+          <Button className="hidden sm:flex bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-5 text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
+            <Github className="h-6 w-6" />
+            Login
+          </Button>
+        </div>
       </nav>
-
       {/* Hero Section */}
       <section
         id="dev.fm"
-        className="relative min-h-screen flex items-center justify-center px-4 "
+        className="relative min-h-screen flex pt-32 sm:pt-40 md:pt-52 justify-center px-4 "
       >
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black via-neutral-900 to-black" />
           {/* Gradient Orbs */}
-          <div className="animate-orb-1 absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl" />
-          <div className="animate-orb-2 absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl" />
+          <div className="animate-orb-1 absolute top-1/3 left-1/5 w-64 h-64 bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl" />
+          <div className="animate-orb-2 absolute bottom-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-full blur-3xl" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <div className="mb-8">
-            <div className="relative inline-block">
-              <h1 className="fade-pullup text-5xl md:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 font-mono">
-                dev.fm
-              </h1>
-              {/* Hand-drawn underline */}
-              <svg
-                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-full h-4"
-                viewBox="0 0 300 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 15C50 12 100 8 150 10C200 12 250 16 290 14"
-                  stroke="url(#underlineGradient)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
+          <div className="inline-block">
+            <p className="font-bold text-balance fade-pullup-2 text-3xl sm:text-4xl md:text-6xl text-white leading-tight">
+              Turn your ideas and insights into engaging{" "}
+              <span className="text-white relative text-glow">
+                audio podcasts.
+                <svg
+                  className="absolute -bottom-1 left-0 w-full h-[3px]"
+                  viewBox="0 0 100 3"
+                  preserveAspectRatio="none"
                   fill="none"
-                  className="animate-draw-underline"
-                />
-                <defs>
-                  <linearGradient
-                    id="underlineGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="#22d3ee" />
-                    <stop offset="50%" stopColor="#a855f7" />
-                    <stop offset="100%" stopColor="#ec4899" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <p className="fade-pullup-1 text-balance text-lg md:text-3xl text-green-300 mx-2 mt-6 font-bold">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient
+                      id="underlineGradient"
+                      x1="0"
+                      y1="0"
+                      x2="100"
+                      y2="0"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#fff" />
+                      <stop offset="50%" stopColor="#f0cdeb" />
+                      <stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                  </defs>
+                  <line
+                    x1="0"
+                    y1="1.5"
+                    x2="100"
+                    y2="1.5"
+                    stroke="url(#underlineGradient)"
+                    strokeWidth="3"
+                    className="animate-draw-line"
+                  />
+                </svg>
+              </span>
+            </p>
+            {/* Hand-drawn underline */}
+          </div>
+
+          <div className="mt-10 sm:mt-12 md:mt-16">
+            <p className="fade-pullup-1 text-balance text-2xl sm:text-3xl md:text-4xl text-green-300 mx-2 mt-6 font-bold">
               For devs who
             </p>
             <WordRotate
-              className="text-lg md:text-3xl text-neutral-200 font-bold"
+              className="text-lg sm:text-xl md:text-2xl text-neutral-200 font-bold"
               words={[
                 "want to commit ideas",
                 "debug out loud",
@@ -96,22 +116,16 @@ export default function DevFmLanding() {
             />
           </div>
 
-          <div className="relative outline outline-white/10 shadow-[0_0_6px_#f472b6] rounded-2xl p-6 mb-8 bg-black/20 backdrop-blur-xl max-w-xl mx-auto">
-            <p className="text-balance fade-pullup-2 text-sm sm:text-base md:text-xl text-white leading-relaxed">
-              Turn your ideas and insights into engaging{" "}
-              <span className="text-blue-400">audio podcasts.</span> Share your
-              voice with the dev community.
+          <div className="flex flex-col sm:flex-row gap-6 items-center justify-center mt-10">
+            <p className="border border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
+              <ChevronRight className="inline mr-1 text-pink-400" />
+              Continue with GitHub
+            </p>
+            <p className="text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
+              Learn More
+              <ChevronDown className="animate-bounce mt-1 inline ml-2" />
             </p>
           </div>
-
-          <Button className="bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
-            <Github className="h-6 w-6" />
-            Login with GitHub
-          </Button>
-          <p className="text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-pink-400 mt-10">
-            Learn More
-            <ChevronDown className="animate-bounce mt-1 inline ml-2" />
-          </p>
         </div>
       </section>
 

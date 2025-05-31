@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Playpen_Sans } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
+const outfit = Playpen_Sans({
   variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
