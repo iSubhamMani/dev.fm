@@ -48,20 +48,20 @@ export default function DevFmLanding() {
       {/* Hero Section */}
       <section
         id="dev.fm"
-        className="relative min-h-screen flex pt-32 sm:pt-40 md:pt-52 justify-center px-4 "
+        className="relative min-h-screen flex pt-32 sm:pt-40 md:pt-40 justify-center px-4 "
       >
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black via-neutral-900 to-black" />
           {/* Gradient Orbs */}
-          <div className="animate-orb-1 absolute top-1/3 left-1/5 w-64 h-64 bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl" />
-          <div className="animate-orb-2 absolute bottom-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-full blur-3xl" />
+          <div className="animate-orb-1 absolute top-1/3 left-1/5 w-96 h-96 bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl" />
+          <div className="animate-orb-2 absolute bottom-1/2 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-full blur-3xl" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <div className="inline-block">
-            <p className="font-bold text-balance fade-pullup-2 text-3xl sm:text-4xl md:text-6xl text-white leading-tight">
+            <p className="font-bold text-balance fade-pullup-2 text-4xl sm:text-5xl md:text-7xl text-white leading-tight">
               Turn your ideas and insights into engaging{" "}
               <span className="text-white relative text-glow">
                 audio podcasts.
