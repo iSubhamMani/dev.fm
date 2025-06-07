@@ -127,18 +127,18 @@ const DockIcon = ({
   return (
     <motion.div
       ref={ref}
-      style={{ width: scaleSize, height: scaleSize, padding }}
+      style={{
+        padding,
+      }}
       className={cn(
-        "group relative flex aspect-square cursor-pointer items-center justify-center rounded-full transition",
+        // Removed aspect-square, added h-[dynamic] and horizontal flex layout
+        "group relative flex flex-row items-center justify-start gap-2 px-2 transition rounded-xl",
         className
       )}
       {...props}
     >
       {/* Background glow */}
-      <motion.div
-        layoutId="hover-glow"
-        className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400/80 to-pink-500/10 opacity-0 group-hover:opacity-100 scale-125 blur-2xl transition duration-300 pointer-events-none"
-      />
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-pink-400/80 to-pink-500/10 opacity-0 group-hover:opacity-100 scale-125 blur-2xl transition duration-300 pointer-events-none" />
       {children}
     </motion.div>
   );
