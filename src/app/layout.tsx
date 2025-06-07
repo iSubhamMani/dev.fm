@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playpen_Sans } from "next/font/google";
 import "./globals.css";
+import Providers from "./Providers";
 
 const outfit = Playpen_Sans({
   variable: "--font-outfit",
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className} antialiased`}>{children}</body>
+      <body className={`${outfit.className} antialiased`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
