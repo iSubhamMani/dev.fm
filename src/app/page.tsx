@@ -1,3 +1,4 @@
+import LoginButtonPrimary from "@/components/LoginButtonPrimary";
 import { WordRotate } from "@/components/magicui/word-rotate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -39,10 +40,7 @@ export default function DevFmLanding() {
               How it works
             </Link>
           </div>
-          <Button className="hidden sm:flex bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-5 text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
-            <Github className="h-6 w-6" />
-            Login
-          </Button>
+          <LoginButtonPrimary />
         </div>
       </nav>
       {/* Hero Section */}
@@ -117,7 +115,7 @@ export default function DevFmLanding() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 items-center justify-center mt-10">
-            <p className="border bg-neutral-900 border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
+            <p className="border hover:scale-105 transition-all duration-200 ease-in-out bg-neutral-900 border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
               <ChevronRight className="inline mr-1 text-pink-400" />
               Continue with GitHub
             </p>
@@ -319,7 +317,7 @@ export default function DevFmLanding() {
       <section className="py-12 md:py-20 px-4 relative border-y border-white/5 ">
         <div className="absolute inset-0" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-balance text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Start Creating Your Devcast Now
           </h2>
           <p className="text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
@@ -328,10 +326,7 @@ export default function DevFmLanding() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button className="bg-white font-medium cursor-pointer text-black hover:bg-white/90 px-4 py-3 md:px-8 md:py-6 text-xs md:text-sm shadow-lg shadow-pink-600 transition-all duration-300 hover:scale-105">
-              <Github className="h-6 w-6" />
-              Login with GitHub
-            </Button>
+            <LoginButtonPrimary />
           </div>
         </div>
       </section>
