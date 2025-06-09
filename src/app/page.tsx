@@ -1,6 +1,6 @@
 import LoginButtonPrimary from "@/components/LoginButtonPrimary";
+import LoginButtonSecondary from "@/components/LoginButtonSecondary";
 import { WordRotate } from "@/components/magicui/word-rotate";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Github,
@@ -12,7 +12,6 @@ import {
   ArrowRight,
   CheckCircle,
   ChevronDown,
-  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -115,10 +114,7 @@ export default function DevFmLanding() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 items-center justify-center mt-10">
-            <p className="border hover:scale-105 transition-all duration-200 ease-in-out bg-neutral-900 border-white/10 p-2 rounded-md shadow-lg cursor-pointer text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
-              <ChevronRight className="inline mr-1 text-pink-400" />
-              Continue with GitHub
-            </p>
+            <LoginButtonSecondary />
             <p className="text-center font-medium items-center fade-pullup-3 text-sm md:text-base text-white">
               Learn More
               <ChevronDown className="animate-bounce mt-1 inline ml-2" />
