@@ -3,8 +3,8 @@ import { Playpen_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "./Providers";
 
-const outfit = Playpen_Sans({
-  variable: "--font-outfit",
+const playpenSans = Playpen_Sans({
+  variable: "--font-playpen-sans",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className} antialiased`}>
+      <body className={`${playpenSans.className} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>
