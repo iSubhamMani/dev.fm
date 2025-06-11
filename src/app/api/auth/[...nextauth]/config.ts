@@ -18,6 +18,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       // When the user signs in, attach the access token to the JWT
       if (account?.access_token) {
+        token.userId = account.providerAccountId;
         token.accessToken = account.access_token;
       }
       return token;
@@ -25,6 +26,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       // Expose the access token to the client via session
       session.accessToken = token.accessToken as string;
+      session.userId = token.userId as string;
       return session;
     },
   },
