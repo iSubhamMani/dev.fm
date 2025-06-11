@@ -53,12 +53,12 @@ const ImportFromGithub = ({ accessToken }: ImportFromGithubProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="cursor-pointer bg-neutral-800 hover:bg-neutral-900 text-white text-xs">
+        <Button className="border border-transparent hover:border-pink-300 text-white text-xs transition-all duration-200 ease-in-out cursor-pointer bg-neutral-800 hover:bg-neutral-900s">
           Import from GitHub
           <FaGithub className="ml-1 size-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="py-4 px-1 sm:p-6 bg-neutral-950 text-white border border-neutral-800 max-w-2xl w-full">
+      <DialogContent className="py-4 px-1 sm:p-6 bg-neutral-900 text-white border border-neutral-800 max-w-2xl w-full">
         <DialogHeader>
           <DialogTitle>
             <span className="inline-flex items-center">
@@ -85,7 +85,7 @@ const ImportFromGithub = ({ accessToken }: ImportFromGithubProps) => {
 
 const RepoItem = ({ repo }: { repo: Repo }) => {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-neutral-950 px-4 py-3 border-b  border-neutral-800">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-neutral-900 px-4 py-3 border-b  border-neutral-800">
       <div className="flex items-center gap-2 flex-1 ">
         {repo.private ? (
           <FaLock className="text-red-500 size-4 mr-1" />
