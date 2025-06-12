@@ -65,7 +65,7 @@ const IdeaInput = ({ session }: { session: Session }) => {
         value={idea}
         onChange={(e) => setIdea(e.target.value)}
         placeholder="Describe your idea here..."
-        className="h-52 overflow-y-auto w-full focus:outline-none focus:ring-0 focus:border-transparent text-sm md:text-lg placeholder:text-sm md:placeholder:text-lg placeholder:text-neutral-500"
+        className="h-52 overflow-y-auto w-full focus:outline-none focus:ring-0 focus:border-transparent text-sm md:text-base placeholder:text-sm md:placeholder:text-base placeholder:text-neutral-500"
         style={{ resize: "none" }}
       />
       <div className="flex items-center justify-end mt-4 gap-4">
