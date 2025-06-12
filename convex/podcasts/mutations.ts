@@ -31,3 +31,19 @@ export const createPodcast = mutation({
     return newPodcastId;
   },
 });
+
+export const updatePodcast = mutation({
+  args: { id: v.id("podcasts"), ...podcast },
+  handler: async (ctx, args) => {
+    const updatedPodcast = await ctx.db.patch(args.id, {
+      title: args.title,
+      idea: args.idea,
+      threadId: args.threadId,
+      userId: args.userId,
+      status: args.status,
+      script: args.script,
+      audioUrl: args.audioUrl,
+    });
+    return updatedPodcast;
+  },
+});
