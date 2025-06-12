@@ -10,6 +10,7 @@
 
 import type * as agents from "../agents.js";
 import type * as podcasts_mutations from "../podcasts/mutations.js";
+import type * as podcasts_queries from "../podcasts/queries.js";
 
 import type {
   ApiFromModules,
@@ -28,6 +29,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   agents: typeof agents;
   "podcasts/mutations": typeof podcasts_mutations;
+  "podcasts/queries": typeof podcasts_queries;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 
