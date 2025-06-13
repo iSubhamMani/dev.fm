@@ -13,12 +13,14 @@ import { error } from "@/utils/sonnerStyles";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { LuLoaderCircle } from "react-icons/lu";
+import { useRouter } from "next/navigation";
 
 const IdeaInput = ({ session }: { session: Session }) => {
   const [idea, setIdea] = useState<string>("");
   const [toastMessage, setToastMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const createPodcast = useMutation(api.podcasts.mutations.createPodcast);
+  const router = useRouter();
 
   const handleCreate = async () => {
     if (!idea.trim() || idea.trim().length < 400) {
@@ -41,7 +43,7 @@ const IdeaInput = ({ session }: { session: Session }) => {
         status: "draft",
       });
 
-      console.log("Created podcast with ID:", podcastId);
+      router.push(`/create/${podcastId}`);
       setIdea("");
     } catch (e: any) {
       console.error("Error creating podcast:", e);
