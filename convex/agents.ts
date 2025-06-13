@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { Agent } from "@convex-dev/agent";
-import { components } from "./_generated/api";
+import { api, components } from "./_generated/api";
 import { tool } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { v } from "convex/values";
 import { action } from "../convex/_generated/server";
+import { Id } from "./_generated/dataModel";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_AI_API_KEY || "",
@@ -21,7 +22,8 @@ const scriptAgentSystemPrompt = `
 `;
 
 const generateScriptTool = tool({
-  description: ``,
+  description:
+    "Generate or update a podcast script based on user instructions.",
   parameters: z.object({
     script: z.string(),
     explanation: z.string(),
@@ -42,6 +44,15 @@ export const createScriptAgentThread = action({
     prompt: v.string(),
     userId: v.string(),
     threadId: v.optional(v.string()),
+    podcastId: v.optional(v.id("podcasts")),
+    status: v.optional(
+      v.union(
+        v.literal("draft"),
+        v.literal("scriptGenerated"),
+        v.literal("audioGenerated"),
+        v.literal("published")
+      )
+    ),
   },
   handler: async (ctx, args) => {
     let thread;
@@ -63,6 +74,13 @@ export const createScriptAgentThread = action({
 
     const result = await thread.generateText({
       prompt: args.prompt,
+    });
+
+    await ctx.runMutation(api.podcasts.mutations.updatePodcast, {
+      id: args.podcastId as Id<"podcasts">,
+      script: result?.toolResults?.[0]?.result?.script,
+      status: args.status || "scriptGenerated",
+      threadId: threadId,
     });
 
     return {
