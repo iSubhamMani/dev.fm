@@ -1,7 +1,7 @@
 "use client";
 
 import { Podcast } from "@/models/Podcast";
-import { useAction, useMutation, useQuery } from "convex/react";
+import { useAction, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "../../../../convex/_generated/dataModel";
@@ -18,7 +18,6 @@ const CreatePodcastDetails = () => {
     podcastId: podcastId as Id<"podcasts">,
   });
 
-  const updatePodcast = useMutation(api.podcasts.mutations.updatePodcast);
   const createScriptAgentThreadAction = useAction(
     api.agents.createScriptAgentThread
   );
@@ -40,21 +39,12 @@ const CreatePodcastDetails = () => {
       ) {
         setIsGenerating(true);
         try {
-          const { threadId, toolResults } = await createScriptAgentThreadAction(
-            {
-              prompt: podcastDetails.idea,
-              userId: session.userId,
-              threadId: undefined,
-            }
-          );
-
-          await updatePodcast({
-            id: podcastId as Id<"podcasts">,
-            idea: podcastDetails.idea,
+          await createScriptAgentThreadAction({
+            prompt: podcastDetails.idea,
             userId: session.userId,
-            threadId: threadId,
+            threadId: undefined,
+            podcastId: podcastId as Id<"podcasts">,
             status: "scriptGenerated",
-            script: toolResults?.script,
           });
         } catch (err) {
           console.error("Script generation failed:", err);
@@ -115,6 +105,7 @@ const CreatePodcastDetails = () => {
         podcastDetails={podcastDetails}
         threadId={podcastDetails.threadId}
         uid={session.userId}
+        avatar={session.user?.image || ""}
       />
     )
   );
