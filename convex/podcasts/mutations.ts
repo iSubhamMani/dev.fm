@@ -1,23 +1,16 @@
 import { mutation } from "../_generated/server";
 import { v } from "convex/values";
 
-const podcast = {
-  title: v.optional(v.string()),
-  idea: v.string(),
-  threadId: v.optional(v.string()),
-  userId: v.string(),
-  status: v.union(
-    v.literal("draft"),
-    v.literal("scriptGenerated"),
-    v.literal("audioGenerated"),
-    v.literal("published")
-  ),
-  script: v.optional(v.string()),
-  audioUrl: v.optional(v.string()),
-};
-
 export const createPodcast = mutation({
-  args: { ...podcast },
+  args: {
+    title: v.optional(v.string()),
+    idea: v.string(),
+    threadId: v.optional(v.string()),
+    userId: v.string(),
+    status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
+    script: v.optional(v.string()),
+    audioUrl: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const newPodcastId = await ctx.db.insert("podcasts", {
       title: args.title,
@@ -27,6 +20,7 @@ export const createPodcast = mutation({
       status: args.status || "draft",
       script: args.script,
       audioUrl: args.audioUrl,
+      scriptGenerated: false, // Default to false when creating a new podcast
     });
     return newPodcastId;
   },
@@ -39,14 +33,7 @@ export const updatePodcast = mutation({
     idea: v.optional(v.string()),
     threadId: v.optional(v.string()),
     userId: v.optional(v.string()),
-    status: v.optional(
-      v.union(
-        v.literal("draft"),
-        v.literal("scriptGenerated"),
-        v.literal("audioGenerated"),
-        v.literal("published")
-      )
-    ),
+    status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
     script: v.optional(v.string()),
     audioUrl: v.optional(v.string()),
   },

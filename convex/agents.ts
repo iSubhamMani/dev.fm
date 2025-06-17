@@ -45,14 +45,8 @@ export const createScriptAgentThread = action({
     userId: v.string(),
     threadId: v.optional(v.string()),
     podcastId: v.optional(v.id("podcasts")),
-    status: v.optional(
-      v.union(
-        v.literal("draft"),
-        v.literal("scriptGenerated"),
-        v.literal("audioGenerated"),
-        v.literal("published")
-      )
-    ),
+    status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
+    scriptGenerated: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     let thread;
@@ -79,7 +73,7 @@ export const createScriptAgentThread = action({
     await ctx.runMutation(api.podcasts.mutations.updatePodcast, {
       id: args.podcastId as Id<"podcasts">,
       script: result?.toolResults?.[0]?.result?.script,
-      status: args.status || "scriptGenerated",
+      status: args.status || "draft",
       threadId: threadId,
     });
 
