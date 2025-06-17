@@ -34,6 +34,7 @@ const CreatePodcastDetails = () => {
         session &&
         podcastDetails &&
         podcastDetails.status === "draft" &&
+        podcastDetails.scriptGenerated &&
         !podcastDetails.threadId &&
         !isGenerating
       ) {
@@ -44,7 +45,7 @@ const CreatePodcastDetails = () => {
             userId: session.userId,
             threadId: undefined,
             podcastId: podcastId as Id<"podcasts">,
-            status: "scriptGenerated",
+            scriptGenerated: true,
           });
         } catch (err) {
           console.error("Script generation failed:", err);
@@ -99,7 +100,7 @@ const CreatePodcastDetails = () => {
 
   // ✅ Once everything is ready
   return (
-    podcastDetails?.status === "scriptGenerated" &&
+    podcastDetails?.scriptGenerated &&
     podcastDetails.threadId && (
       <ReviewScript
         podcastDetails={podcastDetails}
