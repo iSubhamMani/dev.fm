@@ -8,3 +8,15 @@ export const getPodcastById = query({
     return podcast;
   },
 });
+
+export const getAllDrafts = query({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    const drafts = await ctx.db
+      .query("podcasts")
+      .withIndex("by_status", (q) => q.eq("status", "draft"))
+      .filter((q) => q.eq(q.field("userId"), args.userId))
+      .collect();
+    return drafts;
+  },
+});
