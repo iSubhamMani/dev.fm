@@ -1,7 +1,5 @@
 enum PodcastStatus {
   DRAFT = "draft",
-  SCRIPT_GENERATED = "scriptGenerated",
-  AUDIO_GENERATED = "audioGenerated",
   PUBLISHED = "published",
 }
 
@@ -14,4 +12,5 @@ export interface Podcast {
   status: PodcastStatus;
   script?: string;
   audioUrl?: string;
+  scriptGenerated?: boolean;
 }
