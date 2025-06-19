@@ -34,7 +34,7 @@ const CreatePodcastDetails = () => {
         session &&
         podcastDetails &&
         podcastDetails.status === "draft" &&
-        podcastDetails.scriptGenerated &&
+        !podcastDetails.scriptGenerated &&
         !podcastDetails.threadId &&
         !isGenerating
       ) {
