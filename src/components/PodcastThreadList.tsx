@@ -17,13 +17,16 @@ const PodcastThreadList = ({ userId }: { userId: string }) => {
   });
 
   return (
-    <div className="flex justify-start w-full realtive">
+    <div className="flex justify-start w-full relative">
       <Sheet>
-        <SheetTrigger className="text-sm group text-white cursor-pointer flex items-center gap-2 absolute top-6 left-6">
+        <SheetTrigger className="text-sm group text-white cursor-pointer flex gap-2 h-screen absolute z-50 hover:bg-gradient-to-r from-neutral-900/80 to-transparent transition-colors pl-6 pr-10 py-6">
           Drafts{" "}
           <PanelRight className="size-4 transition-transform group-hover:translate-x-1" />
         </SheetTrigger>
-        <SheetContent side="left" className="bg-neutral-900">
+        <SheetContent
+          side="left"
+          className="bg-neutral-900/40 backdrop-blur-md"
+        >
           <SheetHeader>
             <SheetTitle className="text-white">Your Drafts</SheetTitle>
           </SheetHeader>
@@ -32,7 +35,7 @@ const PodcastThreadList = ({ userId }: { userId: string }) => {
               drafts.length > 0 &&
               drafts.map((draft) => (
                 <Link href={`/create/${draft._id}`} key={draft._id}>
-                  <div className="p-4 space-y-2 border-b border-neutral-700 hover:bg-gradient-to-br from-neutral-800 to-neutral-800/40 transition-colors cursor-pointer">
+                  <div className="p-4 space-y-2 border-b border-neutral-700 hover:bg-gradient-to-br from-neutral-800/60 to-neutral-800/40 transition-colors cursor-pointer">
                     <p className="text-white text-sm font-semibold">
                       {draft.title || "Untitled Draft"}
                     </p>
