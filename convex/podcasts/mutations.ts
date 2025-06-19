@@ -8,7 +8,17 @@ export const createPodcast = mutation({
     threadId: v.optional(v.string()),
     userId: v.string(),
     status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
-    script: v.optional(v.string()),
+    script: v.optional(
+      v.object({
+        episodes: v.array(
+          v.object({
+            episode: v.number(),
+            title: v.string(),
+            script: v.string(),
+          })
+        ),
+      })
+    ),
     audioUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
@@ -34,8 +44,19 @@ export const updatePodcast = mutation({
     threadId: v.optional(v.string()),
     userId: v.optional(v.string()),
     status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
-    script: v.optional(v.string()),
+    script: v.optional(
+      v.object({
+        episodes: v.array(
+          v.object({
+            episode: v.number(),
+            title: v.string(),
+            script: v.string(),
+          })
+        ),
+      })
+    ),
     audioUrl: v.optional(v.string()),
+    scriptGenerated: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     // Build the update object with only provided fields
@@ -47,6 +68,9 @@ export const updatePodcast = mutation({
     if (args.status !== undefined) update.status = args.status;
     if (args.script !== undefined) update.script = args.script;
     if (args.audioUrl !== undefined) update.audioUrl = args.audioUrl;
+    if (args.scriptGenerated !== undefined) {
+      update.scriptGenerated = args.scriptGenerated;
+    }
 
     const updatedPodcast = await ctx.db.patch(args.id, update);
     return updatedPodcast;

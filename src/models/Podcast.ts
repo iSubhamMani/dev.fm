@@ -10,7 +10,15 @@ export interface Podcast {
   threadId?: string;
   userId: string;
   status: PodcastStatus;
-  script?: string;
+  script?: {
+    episodes: [
+      {
+        episode: number;
+        title: string;
+        script: string;
+      },
+    ];
+  };
   audioUrl?: string;
   scriptGenerated?: boolean;
 }

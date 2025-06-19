@@ -10,7 +10,17 @@ export default defineSchema({
     userId: v.string(),
     status: v.union(v.literal("draft"), v.literal("published")),
     scriptGenerated: v.optional(v.boolean()),
-    script: v.optional(v.string()),
+    script: v.optional(
+      v.object({
+        episodes: v.array(
+          v.object({
+            episode: v.number(),
+            title: v.string(),
+            script: v.string(),
+          })
+        ),
+      })
+    ),
     audioUrl: v.optional(v.string()),
   }).index("by_status", ["status"]),
 });
