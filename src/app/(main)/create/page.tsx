@@ -19,7 +19,7 @@ const Create = async () => {
   }
 
   return (
-    <div className="h-screen flex flex-col relative items-center px-4">
+    <div className="h-screen flex flex-col relative items-center">
       <DotPattern
         className={cn(
           "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
