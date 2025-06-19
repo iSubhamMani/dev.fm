@@ -5,18 +5,28 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Podcast } from "@/models/Podcast";
-import { useState } from "react";
-import { useAction } from "convex/react";
+import { useEffect, useState } from "react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { LuLoaderCircle } from "react-icons/lu";
 import { RiRobot2Fill } from "react-icons/ri";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { WordRotate } from "./magicui/word-rotate";
 import { Id } from "../../convex/_generated/dataModel";
+import { ChevronLeft, ChevronRight, Dot } from "lucide-react";
+import { toast } from "sonner";
+import { error } from "@/utils/sonnerStyles";
+import { useDebounce } from "use-debounce";
 
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+}
+
+interface Episode {
+  episode: number;
+  title: string;
+  script: string;
 }
 
 const ReviewScript = ({
@@ -30,7 +40,13 @@ const ReviewScript = ({
   uid: string;
   avatar: string;
 }) => {
+  const [script, setScript] = useState<Episode[]>(
+    podcastDetails.script?.episodes || []
+  );
+  const [currentEpisode, setCurrentEpisode] = useState<number>(0);
+  const [updating, setUpdating] = useState(false);
   const [userPrompt, setUserPrompt] = useState<string>("");
+  const [debouncedScript] = useDebounce(script, 1000);
   const [generatingChanges, setGeneratingChanges] = useState(false);
   const createScriptAgentThreadAction = useAction(
     api.agents.createScriptAgentThread
@@ -42,6 +58,15 @@ const ReviewScript = ({
         "Hi! I'm your script assistant. I can help you refine your podcast script. Please describe the changes you want to make.",
     },
   ]);
+  const updateAction = useMutation(api.podcasts.mutations.updatePodcast);
+
+  const handleScriptChange = (episodeNumber: number, newValue: string) => {
+    setScript((prev) =>
+      prev.map((ep) =>
+        ep.episode === episodeNumber ? { ...ep, script: newValue } : ep
+      )
+    );
+  };
 
   const askScriptAgent = async () => {
     if (!userPrompt.trim()) {
@@ -73,11 +98,37 @@ const ReviewScript = ({
     }
   };
 
+  useEffect(() => {
+    setScript(podcastDetails.script?.episodes || []);
+  }, [podcastDetails.script]);
+
+  // Auto-save script changes
+  useEffect(() => {
+    if (!podcastDetails._id || !debouncedScript) return;
+
+    async function saveChanges() {
+      try {
+        setUpdating(true);
+        await updateAction({
+          id: podcastDetails._id as Id<"podcasts">,
+          script: { episodes: debouncedScript },
+        });
+      } catch {
+        toast.error("Failed to save changes. Try again.", {
+          style: error,
+        });
+      } finally {
+        setUpdating(false);
+      }
+    }
+    saveChanges();
+  }, [debouncedScript, podcastDetails._id, updateAction]);
+
   return (
     <div
       className={`h-screen bg-[radial-gradient(ellipse_90%_90%_at_50%_-30%,rgba(236,72,153,0.25),rgba(96,130,246,0.25),rgba(255,255,255,0))] flex bg-neutral-950/95 relative overflow-hidden text-white`}
     >
-      <section className="w-full border-l-2 border-neutral-800 flex flex-col">
+      <section className="w-full flex flex-col">
         <div className="flex-1 flex flex-col overflow-y-auto rounded-sm border border-neutral-600 shadow-lg bg-neutral-900/60 backdrop-blur-sm text-white p-4">
           <div className="flex-1 flex flex-col gap-6 overflow-y-auto px-4 pb-6 pt-2">
             {chatMessages.map((message, index) => {
@@ -135,23 +186,61 @@ const ReviewScript = ({
           </div>
         </div>
       </section>
-      <section className="relative w-full overflow-hidden p-6 flex flex-col">
-        <h1 className="text-sm text-center font-bold text-white bg-neutral-900/60 px-4 py-3 rounded-md shadow-lg mb-2">
-          Script
-        </h1>
+      <section className="bg-neutral-900/60 relative w-full overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between text-white shadow-lg">
+          <button
+            className="group cursor-pointer px-6 h-full hover:bg-gradient-to-r from-neutral-900/90 to-transparent transition-colors"
+            disabled={currentEpisode === 0}
+            onClick={() => setCurrentEpisode((prev) => Math.max(prev - 1, 0))}
+          >
+            <ChevronLeft className="size-5 disabled:text-neutral-600 group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <div className="space-y-3 text-center py-3">
+            <h1 className="text-sm text-center font-bold">
+              Episode {currentEpisode + 1}
+            </h1>
+            <p className="text-xs text-neutral-300">
+              {script[currentEpisode].title}
+            </p>
+            <div className="flex justify-center items-center">
+              <p className="text-sm text-neutral-400 flex items-center">
+                <Dot
+                  className={`${updating ? "text-yellow-500" : "text-green-500"} size-8`}
+                />
+                {updating ? "Saving changes..." : "Last edited at"}
+              </p>
+            </div>
+          </div>
+          <button
+            className="group cursor-pointer px-6 h-full hover:bg-gradient-to-l from-neutral-900/90 to-transparent transition-colors"
+            disabled={currentEpisode + 1 === script.length}
+            onClick={() => setCurrentEpisode((prev) => prev + 1)}
+          >
+            <ChevronRight className="size-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+
         <Textarea
-          value={JSON.stringify(podcastDetails.script?.episodes, null, 2)}
+          value={script[currentEpisode]?.script || ""}
+          onChange={(e) =>
+            handleScriptChange(
+              script[currentEpisode]?.episode || 1,
+              e.target.value.trim()
+            )
+          }
           placeholder="Edit your script here..."
-          className={`flex-1 overflow-y-auto bg-neutral-900/60 backdrop-blur-sm rounded-md border border-neutral-600 shadow-lg text-white p-4 ${generatingChanges && "blur-sm"}`}
+          className={`flex-1 shadow-lg overflow-y-auto bg-neutral-800 border-t border-neutral-600 backdrop-blur-sm text-white p-4 rounded-t-2xl ${generatingChanges && "blur-sm"}`}
           style={{ resize: "none" }}
         />
-        <Button
-          disabled={generatingChanges}
-          className="py-6 cursor-pointer font-medium bg-neutral-800 border border-transparent hover:border-pink-300 text-pink-300 text-sm transition-all duration-200 ease-in-out mt-4"
-        >
-          <CgMediaPodcast className="mr-2 size-5" />
-          Generate Podcast
-        </Button>
+        <div className="flex justify-end px-6 bg-transparent">
+          <Button
+            disabled={generatingChanges || updating}
+            className="mb-4 py-6 cursor-pointer font-medium bg-neutral-800 border border-transparent hover:border-pink-300 text-pink-300 text-sm transition-all duration-200 ease-in-out mt-4"
+          >
+            <CgMediaPodcast className="mr-2 size-5" />
+            Generate Podcast
+          </Button>
+        </div>
 
         {generatingChanges && (
           <div className="animate-pulse absolute inset-0 z-10 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-md transition-all">
