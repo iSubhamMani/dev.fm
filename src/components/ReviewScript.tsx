@@ -30,7 +30,6 @@ const ReviewScript = ({
   uid: string;
   avatar: string;
 }) => {
-  const [script, setScript] = useState(podcastDetails.script || "");
   const [userPrompt, setUserPrompt] = useState<string>("");
   const [generatingChanges, setGeneratingChanges] = useState(false);
   const createScriptAgentThreadAction = useAction(
@@ -60,7 +59,6 @@ const ReviewScript = ({
       });
 
       setUserPrompt("");
-      setScript(toolResults?.script);
       setChatMessages((prev) => [
         ...prev,
         {
@@ -142,8 +140,7 @@ const ReviewScript = ({
           Script
         </h1>
         <Textarea
-          value={script}
-          onChange={(e) => setScript(e.target.value)}
+          value={JSON.stringify(podcastDetails.script?.episodes, null, 2)}
           placeholder="Edit your script here..."
           className={`flex-1 overflow-y-auto bg-neutral-900/60 backdrop-blur-sm rounded-md border border-neutral-600 shadow-lg text-white p-4 ${generatingChanges && "blur-sm"}`}
           style={{ resize: "none" }}
