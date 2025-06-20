@@ -22,5 +22,6 @@ export default defineSchema({
       })
     ),
     audioUrl: v.optional(v.string()),
+    updatedAt: v.optional(v.string()),
   }).index("by_status", ["status"]),
 });

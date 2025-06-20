@@ -71,6 +71,7 @@ export const updatePodcast = mutation({
     if (args.scriptGenerated !== undefined) {
       update.scriptGenerated = args.scriptGenerated;
     }
+    update.updatedAt = new Date().toISOString();
 
     const updatedPodcast = await ctx.db.patch(args.id, update);
     return updatedPodcast;

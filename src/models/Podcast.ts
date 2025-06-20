@@ -21,4 +21,5 @@ export interface Podcast {
   };
   audioUrl?: string;
   scriptGenerated?: boolean;
+  updatedAt?: string;
 }
