@@ -5,7 +5,7 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Podcast } from "@/models/Podcast";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { LuLoaderCircle } from "react-icons/lu";
@@ -17,6 +17,8 @@ import { ChevronLeft, ChevronRight, Dot } from "lucide-react";
 import { toast } from "sonner";
 import { error } from "@/utils/sonnerStyles";
 import { useDebounce } from "use-debounce";
+import { isEqual } from "lodash";
+import { getRelativeTime } from "@/utils/formatTime";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -48,6 +50,7 @@ const ReviewScript = ({
   const [userPrompt, setUserPrompt] = useState<string>("");
   const [debouncedScript] = useDebounce(script, 1000);
   const [generatingChanges, setGeneratingChanges] = useState(false);
+  const previousScriptRef = useRef<Episode[] | null>(null);
   const createScriptAgentThreadAction = useAction(
     api.agents.createScriptAgentThread
   );
@@ -103,26 +106,32 @@ const ReviewScript = ({
   }, [podcastDetails.script]);
 
   // Auto-save script changes
+
+  const saveChanges = useCallback(async () => {
+    try {
+      setUpdating(true);
+      console.log("Saving changes to podcast script:");
+      await updateAction({
+        id: podcastDetails._id as Id<"podcasts">,
+        script: { episodes: debouncedScript },
+      });
+    } catch {
+      toast.error("Failed to save changes. Try again.", {
+        style: error,
+      });
+    } finally {
+      setUpdating(false);
+    }
+  }, [updateAction, podcastDetails._id, debouncedScript]);
+
   useEffect(() => {
     if (!podcastDetails._id || !debouncedScript) return;
 
-    async function saveChanges() {
-      try {
-        setUpdating(true);
-        await updateAction({
-          id: podcastDetails._id as Id<"podcasts">,
-          script: { episodes: debouncedScript },
-        });
-      } catch {
-        toast.error("Failed to save changes. Try again.", {
-          style: error,
-        });
-      } finally {
-        setUpdating(false);
-      }
+    if (!isEqual(previousScriptRef.current, debouncedScript)) {
+      previousScriptRef.current = debouncedScript;
+      saveChanges();
     }
-    saveChanges();
-  }, [debouncedScript, podcastDetails._id, updateAction]);
+  }, [saveChanges]);
 
   return (
     <div
@@ -189,11 +198,11 @@ const ReviewScript = ({
       <section className="bg-neutral-900/60 relative w-full overflow-hidden flex flex-col">
         <div className="flex items-center justify-between text-white shadow-lg">
           <button
-            className="group cursor-pointer px-6 h-full hover:bg-gradient-to-r from-neutral-900/90 to-transparent transition-colors"
+            className="group cursor-pointer px-6 h-full disabled:pointer-events-none disabled:text-neutral-500 hover:bg-gradient-to-r from-neutral-900/90 to-transparent transition-colors"
             disabled={currentEpisode === 0}
             onClick={() => setCurrentEpisode((prev) => Math.max(prev - 1, 0))}
           >
-            <ChevronLeft className="size-5 disabled:text-neutral-600 group-hover:-translate-x-1 transition-transform" />
+            <ChevronLeft className="size-5 group-hover:-translate-x-1 transition-transform" />
           </button>
           <div className="space-y-3 text-center py-3">
             <h1 className="text-sm text-center font-bold">
@@ -207,12 +216,14 @@ const ReviewScript = ({
                 <Dot
                   className={`${updating ? "text-yellow-500" : "text-green-500"} size-8`}
                 />
-                {updating ? "Saving changes..." : "Last edited at"}
+                {updating
+                  ? "Saving changes..."
+                  : `Last edited ${getRelativeTime(podcastDetails.updatedAt)}`}
               </p>
             </div>
           </div>
           <button
-            className="group cursor-pointer px-6 h-full hover:bg-gradient-to-l from-neutral-900/90 to-transparent transition-colors"
+            className="group cursor-pointer disabled:pointer-events-none disabled:text-neutral-500 px-6 h-full hover:bg-gradient-to-l from-neutral-900/90 to-transparent transition-colors"
             disabled={currentEpisode + 1 === script.length}
             onClick={() => setCurrentEpisode((prev) => prev + 1)}
           >
@@ -225,7 +236,7 @@ const ReviewScript = ({
           onChange={(e) =>
             handleScriptChange(
               script[currentEpisode]?.episode || 1,
-              e.target.value.trim()
+              e.target.value
             )
           }
           placeholder="Edit your script here..."
