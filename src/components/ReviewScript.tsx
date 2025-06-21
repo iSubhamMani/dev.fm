@@ -51,6 +51,7 @@ const ReviewScript = ({
   const [debouncedScript] = useDebounce(script, 1000);
   const [generatingChanges, setGeneratingChanges] = useState(false);
   const previousScriptRef = useRef<Episode[] | null>(null);
+  const hasMounted = useRef(false);
   const createScriptAgentThreadAction = useAction(
     api.agents.createScriptAgentThread
   );
@@ -122,10 +123,16 @@ const ReviewScript = ({
     } finally {
       setUpdating(false);
     }
-  }, [updateAction, podcastDetails._id, debouncedScript]);
+  }, [podcastDetails._id, debouncedScript]);
 
   useEffect(() => {
     if (!podcastDetails._id || !debouncedScript) return;
+
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      previousScriptRef.current = debouncedScript;
+      return;
+    }
 
     if (!isEqual(previousScriptRef.current, debouncedScript)) {
       previousScriptRef.current = debouncedScript;
@@ -144,7 +151,7 @@ const ReviewScript = ({
               return (
                 <div
                   key={index}
-                  className={` flex items-start gap-2 w-full max-w-md ${message.role === "user" ? "text-pink-300 self-end flex-row-reverse" : "text-blue-300 self-start"}`}
+                  className={` flex items-start gap-2 w-full max-w-md text-white ${message.role === "user" ? "self-end flex-row-reverse" : "self-start"}`}
                 >
                   {message.role === "assistant" ? (
                     <RiRobot2Fill className="size-4 text-blue-300" />
