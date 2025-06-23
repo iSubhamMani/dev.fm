@@ -1,6 +1,5 @@
 "use client";
 
-import { CgMediaPodcast } from "react-icons/cg";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,6 +18,7 @@ import { error } from "@/utils/sonnerStyles";
 import { useDebounce } from "use-debounce";
 import { isEqual } from "lodash";
 import { getRelativeTime } from "@/utils/formatTime";
+import GeneratePodcastDialog from "./GeneratePodcastDialog";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -43,7 +43,7 @@ const ReviewScript = ({
   avatar: string;
 }) => {
   const [script, setScript] = useState<Episode[]>(
-    podcastDetails.script?.episodes || []
+    podcastDetails?.episodes || []
   );
   const [currentEpisode, setCurrentEpisode] = useState<number>(0);
   const [updating, setUpdating] = useState(false);
@@ -103,8 +103,8 @@ const ReviewScript = ({
   };
 
   useEffect(() => {
-    setScript(podcastDetails.script?.episodes || []);
-  }, [podcastDetails.script]);
+    setScript(podcastDetails?.episodes || []);
+  }, [podcastDetails.episodes]);
 
   // Auto-save script changes
 
@@ -114,7 +114,7 @@ const ReviewScript = ({
       console.log("Saving changes to podcast script:");
       await updateAction({
         id: podcastDetails._id as Id<"podcasts">,
-        script: { episodes: debouncedScript },
+        episodes: debouncedScript,
       });
     } catch {
       toast.error("Failed to save changes. Try again.", {
@@ -250,15 +250,11 @@ const ReviewScript = ({
           className={`flex-1 shadow-lg overflow-y-auto bg-neutral-800 border-t border-neutral-600 backdrop-blur-sm text-white p-4 rounded-t-2xl ${generatingChanges && "blur-sm"}`}
           style={{ resize: "none" }}
         />
-        <div className="flex justify-end px-6 bg-transparent">
-          <Button
-            disabled={generatingChanges || updating}
-            className="mb-4 py-6 cursor-pointer font-medium bg-neutral-800 border border-transparent hover:border-pink-300 text-pink-300 text-sm transition-all duration-200 ease-in-out mt-4"
-          >
-            <CgMediaPodcast className="mr-2 size-5" />
-            Generate Podcast
-          </Button>
-        </div>
+        <GeneratePodcastDialog
+          podcastId={podcastDetails._id}
+          updating={updating}
+          generatingChanges={generatingChanges}
+        />
 
         {generatingChanges && (
           <div className="animate-pulse absolute inset-0 z-10 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-md transition-all">
