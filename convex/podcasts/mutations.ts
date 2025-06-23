@@ -8,18 +8,16 @@ export const createPodcast = mutation({
     threadId: v.optional(v.string()),
     userId: v.string(),
     status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
-    script: v.optional(
-      v.object({
-        episodes: v.array(
-          v.object({
-            episode: v.number(),
-            title: v.string(),
-            script: v.string(),
-          })
-        ),
-      })
+    episodes: v.optional(
+      v.array(
+        v.object({
+          episode: v.number(),
+          title: v.string(),
+          script: v.string(),
+          audioUrl: v.optional(v.string()),
+        })
+      )
     ),
-    audioUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const newPodcastId = await ctx.db.insert("podcasts", {
@@ -28,8 +26,7 @@ export const createPodcast = mutation({
       threadId: args.threadId,
       userId: args.userId,
       status: args.status || "draft",
-      script: args.script,
-      audioUrl: args.audioUrl,
+      episodes: args.episodes,
       scriptGenerated: false, // Default to false when creating a new podcast
     });
     return newPodcastId;
@@ -44,18 +41,16 @@ export const updatePodcast = mutation({
     threadId: v.optional(v.string()),
     userId: v.optional(v.string()),
     status: v.optional(v.union(v.literal("draft"), v.literal("published"))),
-    script: v.optional(
-      v.object({
-        episodes: v.array(
-          v.object({
-            episode: v.number(),
-            title: v.string(),
-            script: v.string(),
-          })
-        ),
-      })
+    episodes: v.optional(
+      v.array(
+        v.object({
+          episode: v.number(),
+          title: v.string(),
+          script: v.string(),
+          audioUrl: v.optional(v.string()),
+        })
+      )
     ),
-    audioUrl: v.optional(v.string()),
     scriptGenerated: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
@@ -66,8 +61,7 @@ export const updatePodcast = mutation({
     if (args.threadId !== undefined) update.threadId = args.threadId;
     if (args.userId !== undefined) update.userId = args.userId;
     if (args.status !== undefined) update.status = args.status;
-    if (args.script !== undefined) update.script = args.script;
-    if (args.audioUrl !== undefined) update.audioUrl = args.audioUrl;
+    if (args.episodes !== undefined) update.episodes = args.episodes;
     if (args.scriptGenerated !== undefined) {
       update.scriptGenerated = args.scriptGenerated;
     }
@@ -75,5 +69,24 @@ export const updatePodcast = mutation({
 
     const updatedPodcast = await ctx.db.patch(args.id, update);
     return updatedPodcast;
+  },
+});
+
+export const saveAudioUrl = mutation({
+  args: {
+    podcastId: v.id("podcasts"),
+    episode: v.number(),
+    audioUrl: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId);
+    if (!podcast || !podcast.episodes) throw new Error("Podcast not found");
+
+    const updatedEpisodes = podcast.episodes.map((ep) =>
+      ep.episode === args.episode ? { ...ep, audioUrl: args.audioUrl } : ep
+    );
+
+    await ctx.db.patch(args.podcastId, { episodes: updatedEpisodes });
+    return { success: true, message: "Audio URL saved successfully" };
   },
 });
