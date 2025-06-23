@@ -94,10 +94,13 @@ const GeneratePodcastDialog = ({
     setGenerationState("generating");
     for (const episode of episodes) {
       try {
-        const res = await axios.post("/api/generateAudio", {
-          podcastId,
-          episode,
-        });
+        const res = await axios.post(
+          "https://dev-fm.onrender.com/api/generateAudio",
+          {
+            podcastId,
+            episode,
+          }
+        );
 
         if (res.status === 200) {
           const isSaved = await saveAudio(res.data.audioUrl, episode.episode);

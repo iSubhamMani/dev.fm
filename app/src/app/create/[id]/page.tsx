@@ -29,6 +29,17 @@ const CreatePodcastDetails = () => {
   const podcastDetails = data as Podcast | null;
 
   useEffect(() => {
+    async function healthCheck() {
+      try {
+        await fetch("https://dev-fm.onrender.com");
+      } catch (error) {
+        console.error("Health check failed:", error);
+      }
+    }
+    healthCheck();
+  }, []);
+
+  useEffect(() => {
     const generateScript = async () => {
       if (
         session &&
