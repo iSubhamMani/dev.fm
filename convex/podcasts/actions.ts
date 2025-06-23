@@ -9,16 +9,14 @@ type PodcastType = {
   title?: string | undefined;
   threadId?: string | undefined;
   scriptGenerated?: boolean | undefined;
-  script?:
+  episodes?:
     | {
-        episodes: {
-          title: string;
-          script: string;
-          episode: number;
-        }[];
-      }
+        episode: number;
+        title: string;
+        script: string;
+        audioUrl?: string | undefined;
+      }[]
     | undefined;
-  audioUrl?: string | undefined;
   updatedAt?: string | undefined;
   idea: string;
   userId: string;

@@ -106,7 +106,7 @@ export const createScriptAgentThread = action({
         podcastId: args.podcastId as Id<"podcasts">,
       });
 
-      const existingEpisodes = podcast?.script?.episodes ?? [];
+      const existingEpisodes = podcast?.episodes ?? [];
 
       // Handle deletions if present
       const episodesToDelete: number[] =
@@ -125,7 +125,7 @@ export const createScriptAgentThread = action({
 
       await ctx.runMutation(api.podcasts.mutations.updatePodcast, {
         id: args.podcastId as Id<"podcasts">,
-        script: { episodes: mergedEpisodes },
+        episodes: mergedEpisodes,
         status: args.status || "draft",
         threadId: threadId,
         scriptGenerated: args.scriptGenerated || true,
