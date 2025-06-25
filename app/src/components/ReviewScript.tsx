@@ -133,7 +133,6 @@ const ReviewScript = ({
   const saveChanges = useCallback(async () => {
     try {
       setUpdating(true);
-      console.log("Saving changes to podcast script:");
       await updateAction({
         id: podcastDetails._id as Id<"podcasts">,
         episodes: debouncedScript,
