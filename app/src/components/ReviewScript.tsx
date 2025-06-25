@@ -4,7 +4,7 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Podcast } from "@/models/Podcast";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { LuLoaderCircle } from "react-icons/lu";
@@ -14,11 +14,13 @@ import { WordRotate } from "./magicui/word-rotate";
 import { Id } from "../../convex/_generated/dataModel";
 import { ChevronLeft, ChevronRight, Dot } from "lucide-react";
 import { toast } from "sonner";
-import { error } from "@/utils/sonnerStyles";
+import { error, success } from "@/utils/sonnerStyles";
 import { useDebounce } from "use-debounce";
 import { isEqual } from "lodash";
 import { getRelativeTime } from "@/utils/formatTime";
 import GeneratePodcastDialog from "./GeneratePodcastDialog";
+import PublishPodcastDialog from "./PublishPodcastDialog";
+import UpdatePodcastDialog from "./UpdatePodcastDialog";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -64,6 +66,16 @@ const ReviewScript = ({
   ]);
   const updateAction = useMutation(api.podcasts.mutations.updatePodcast);
 
+  const hasAllAudioUrls = useMemo(
+    () => podcastDetails?.episodes?.every((ep) => ep.audioUrl),
+    [podcastDetails]
+  );
+
+  const isPublished = useMemo(
+    () => podcastDetails?.status === "published",
+    [podcastDetails]
+  );
+
   const handleScriptChange = (episodeNumber: number, newValue: string) => {
     setScript((prev) =>
       prev.map((ep) =>
@@ -101,6 +113,16 @@ const ReviewScript = ({
       setGeneratingChanges(false);
     }
   };
+
+  useEffect(() => {
+    if (!isPublished && hasAllAudioUrls) {
+      toast.success("Your podcast is ready for publishing!", {
+        style: success,
+        duration: 3000,
+        position: "top-center",
+      });
+    }
+  }, [isPublished, hasAllAudioUrls]);
 
   useEffect(() => {
     setScript(podcastDetails?.episodes || []);
@@ -145,7 +167,7 @@ const ReviewScript = ({
       className={`h-screen bg-[radial-gradient(ellipse_90%_90%_at_50%_-30%,rgba(236,72,153,0.25),rgba(96,130,246,0.25),rgba(255,255,255,0))] flex bg-neutral-950/95 relative overflow-hidden text-white`}
     >
       <section className="w-full flex flex-col">
-        <div className="flex-1 flex flex-col overflow-y-auto rounded-sm border border-neutral-600 shadow-lg bg-neutral-900/60 backdrop-blur-sm text-white p-4">
+        <div className="flex-1 flex flex-col overflow-y-auto border border-neutral-600 shadow-lg bg-neutral-900/60 backdrop-blur-sm text-white p-4">
           <div className="flex-1 flex flex-col gap-6 overflow-y-auto px-4 pb-6 pt-2">
             {chatMessages.map((message, index) => {
               return (
@@ -250,11 +272,19 @@ const ReviewScript = ({
           className={`flex-1 shadow-lg overflow-y-auto bg-neutral-800 border-t border-neutral-600 backdrop-blur-sm text-white p-4 rounded-t-2xl ${generatingChanges && "blur-sm"}`}
           style={{ resize: "none" }}
         />
-        <GeneratePodcastDialog
-          podcastId={podcastDetails._id}
-          updating={updating}
-          generatingChanges={generatingChanges}
-        />
+        <div className="flex items-center justify-end space-x-2">
+          <div className="flex justify-end px-6 bg-transparent">
+            {isPublished && <UpdatePodcastDialog />}
+            {!isPublished && hasAllAudioUrls && <PublishPodcastDialog />}
+            {!isPublished && !hasAllAudioUrls && (
+              <GeneratePodcastDialog
+                podcastId={podcastDetails._id}
+                updating={updating}
+                generatingChanges={generatingChanges}
+              />
+            )}
+          </div>
+        </div>
 
         {generatingChanges && (
           <div className="animate-pulse absolute inset-0 z-10 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-md transition-all">
