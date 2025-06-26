@@ -274,7 +274,9 @@ const ReviewScript = ({
         <div className="flex items-center justify-end space-x-2">
           <div className="flex justify-end px-6 bg-transparent">
             {isPublished && <UpdatePodcastDialog />}
-            {!isPublished && hasAllAudioUrls && <PublishPodcastDialog />}
+            {!isPublished && hasAllAudioUrls && (
+              <PublishPodcastDialog podcastId={podcastDetails._id} />
+            )}
             {!isPublished && !hasAllAudioUrls && (
               <GeneratePodcastDialog
                 podcastId={podcastDetails._id}
