@@ -4,6 +4,7 @@ import { Radio, User, Wand2 } from "lucide-react";
 import React, { useState } from "react";
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 enum NavItem {
   Create = "create",
@@ -38,21 +39,24 @@ const Navbar = () => {
       direction="middle"
     >
       {navItems.map((item) => (
-        <DockIcon
-          key={item.id}
-          onClick={() => setSelected(item.id)}
-          className={cn(
-            "cursor-pointer",
-            selected === item.id
-              ? "text-black bg-white/85"
-              : "text-gray-400 hover:text-pink-400"
-          )}
-        >
-          {item.icon}
-          {selected === item.id && (
-            <span className="text-xs md:text-sm font-medium">{item.label}</span>
-          )}
-        </DockIcon>
+        <Link key={item.id} href={`/${item.id}`}>
+          <DockIcon
+            onClick={() => setSelected(item.id)}
+            className={cn(
+              "cursor-pointer",
+              selected === item.id
+                ? "text-black bg-white/85"
+                : "text-gray-400 hover:text-pink-400"
+            )}
+          >
+            {item.icon}
+            {selected === item.id && (
+              <span className="text-xs md:text-sm font-medium">
+                {item.label}
+              </span>
+            )}
+          </DockIcon>
+        </Link>
       ))}
     </Dock>
   );
