@@ -90,3 +90,46 @@ export const saveAudioUrl = mutation({
     return { success: true, message: "Audio URL saved successfully" };
   },
 });
+
+export const publishPodcast = mutation({
+  args: {
+    podcastId: v.id("podcasts"),
+    title: v.string(),
+    description: v.string(),
+    episodeTitles: v.array(
+      v.object({
+        episode: v.number(),
+        title: v.string(),
+      })
+    ),
+    coverImage: v.string(),
+    status: v.literal("published"),
+  },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId);
+    if (!podcast) throw new Error("Podcast not found");
+
+    // Update the podcast with the provided details
+    const updatedPodcast = {
+      ...podcast,
+      title: args.title,
+      description: args.description,
+      episodes: args.episodeTitles.map((et) => ({
+        episode: et.episode,
+        title: et.title,
+        script:
+          podcast.episodes?.find((ep) => ep.episode === et.episode)?.script ||
+          "",
+        audioUrl:
+          podcast.episodes?.find((ep) => ep.episode === et.episode)?.audioUrl ||
+          "",
+      })),
+      coverImage: args.coverImage,
+      status: args.status,
+      updatedAt: new Date().toISOString(),
+    };
+
+    await ctx.db.patch(args.podcastId, updatedPodcast);
+    return { success: true, message: "Podcast published successfully" };
+  },
+});

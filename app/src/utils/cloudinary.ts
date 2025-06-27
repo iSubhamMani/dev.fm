@@ -6,20 +6,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadAudioToCloudinary = async (audioBuffer: Buffer) => {
-  const mimeType = "audio/wav";
-  const encoding = "base64";
-  const base64Data = Buffer.from(audioBuffer).toString("base64");
-
-  // this will be used to upload the file
-  const fileUri = "data:" + mimeType + ";" + encoding + "," + base64Data;
+export const uploadImageToCloudinary = async (
+  fileUri: string,
+  folderName: string
+) => {
   const res = await cloudinary.uploader.upload(fileUri, {
     invalidate: true,
-    resource_type: "raw",
-    folder: "devfm/podcasts",
-    format: "mp3",
-    public_id: `podcast-audio-${Date.now()}.mp3`,
+    resource_type: "image",
+    folder: "devfm/" + folderName,
+    use_filename: true,
   });
 
-  return res.secure_url;
+  return res;
 };
