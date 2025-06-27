@@ -103,7 +103,7 @@ app.post("/api/generateAudio", async (req: Request, res: Response) => {
 
     const uploadResult = await cloudinary.uploader.upload(filePath, {
       resource_type: "video",
-      folder: "devfm/podcasts",
+      folder: "devfm/podcasts/audio",
     });
 
     // Delete file after upload
