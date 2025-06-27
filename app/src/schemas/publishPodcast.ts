@@ -16,10 +16,11 @@ export const publishPodcastSchema = z.object({
   ),
   coverImage:
     typeof window === "undefined"
-      ? z.any().nullable()
+      ? z.any()
       : z
-          .instanceof(FileList)
-          .nullable()
+          .instanceof(FileList, {
+            message: "Cover image is required",
+          })
           .refine(
             (files) => {
               const file = files?.item(0);
@@ -28,9 +29,7 @@ export const publishPodcastSchema = z.object({
               return file?.size <= MAX_FILE_SIZE;
             },
             {
-              message: `Image size should be less than ${
-                MAX_FILE_SIZE / 1000000
-              }MB.`,
+              message: `Image size should be less than ${MAX_FILE_SIZE / 1000000}MB.`,
             }
           )
           .refine(
