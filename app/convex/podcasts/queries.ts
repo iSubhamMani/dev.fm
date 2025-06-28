@@ -20,3 +20,13 @@ export const getAllDrafts = query({
     return drafts;
   },
 });
+
+export const geLatestPublishedPodcasts = query({
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("podcasts")
+      .withIndex("by_status", (q) => q.eq("status", "published"))
+      .order("desc")
+      .collect();
+  },
+});
