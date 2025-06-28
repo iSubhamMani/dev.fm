@@ -1,6 +1,6 @@
+import FeedSearch from "@/components/FeedSearch";
 import PodcastList from "@/components/PodcastList";
-import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
+
 import React from "react";
 
 const HeroSection = () => {
@@ -26,15 +26,7 @@ const HeroSection = () => {
 const Feed = () => {
   return (
     <div className="min-h-screen container mx-auto px-4 py-8">
-      <section className="w-full max-w-3xl mx-auto p-6">
-        <div className="relative">
-          <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Search podcasts..."
-            className="shadow-md py-6 pl-10 pr-12 bg-gray-900/50 border-gray-600 text-white placeholder-gray-300 focus:border-blue-500 focus:ring-blue-500/20"
-          />
-        </div>
-      </section>
+      <FeedSearch />
       <HeroSection />
       <PodcastList />
     </div>
