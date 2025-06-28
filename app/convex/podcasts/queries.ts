@@ -30,3 +30,15 @@ export const geLatestPublishedPodcasts = query({
       .collect();
   },
 });
+
+export const getPublishedPodcastsByQuery = query({
+  args: { query: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("podcasts")
+      .withSearchIndex("by_query", (q) =>
+        q.search("title", args.query).eq("status", "published")
+      )
+      .take(10);
+  },
+});

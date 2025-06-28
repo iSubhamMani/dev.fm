@@ -23,5 +23,10 @@ export default defineSchema({
     updatedAt: v.optional(v.string()),
     coverImage: v.optional(v.string()),
     description: v.optional(v.string()),
-  }).index("by_status", ["status"]),
+  })
+    .index("by_status", ["status"])
+    .searchIndex("by_query", {
+      searchField: "title",
+      filterFields: ["description", "status"],
+    }),
 });

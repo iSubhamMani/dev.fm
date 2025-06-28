@@ -74,3 +74,16 @@ export const createPodcastAction = action({
     return newPodcastId;
   },
 });
+
+export const getSearchResults = action({
+  args: { query: v.string() },
+  handler: async (ctx, args) => {
+    const results = (await ctx.runQuery(
+      api.podcasts.queries.getPublishedPodcastsByQuery,
+      {
+        query: args.query,
+      }
+    )) as PodcastType[];
+    return results;
+  },
+});
