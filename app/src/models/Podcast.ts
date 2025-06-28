@@ -18,4 +18,6 @@ export interface Podcast {
   }[];
   scriptGenerated?: boolean;
   updatedAt?: string;
+  coverImage?: string;
+  description?: string;
 }
