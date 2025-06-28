@@ -7,21 +7,7 @@ import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { Clock, Play, Rocket, User } from "lucide-react";
 import { useMemo } from "react";
-
-interface PodcastData {
-  title?: string;
-  description?: string;
-  coverImage?: string;
-  userId: string;
-  episodes?: {
-    episode: number;
-    title: string;
-    script: string;
-    audioUrl?: string;
-  }[];
-  _id: string;
-  updatedAt?: string;
-}
+import { PodcastData } from "@/models/Podcast";
 
 const PodcastList = () => {
   const data = useQuery(api.podcasts.queries.geLatestPublishedPodcasts);
@@ -64,13 +50,14 @@ const PodcastList = () => {
               <Loading className="w-full h-64" />
             </>
           )}
-          {!isLoading && !error && podcastData && (
-            <>
-              <LatestCardColumn podcast={podcastData[0]} />
-              <LatestCardColumn podcast={podcastData[0]} />
-              <LatestCardColumn podcast={podcastData[0]} />
-            </>
-          )}
+          {!isLoading &&
+            !error &&
+            podcastData &&
+            podcastData
+              .slice(1, 4)
+              .map((podcast) => (
+                <LatestCardColumn key={podcast._id} podcast={podcast} />
+              ))}
         </div>
       </div>
     </div>

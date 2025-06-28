@@ -21,3 +21,14 @@ export interface Podcast {
   coverImage?: string;
   description?: string;
 }
+
+export type PodcastData = Pick<
+  Podcast,
+  | "_id"
+  | "title"
+  | "description"
+  | "coverImage"
+  | "userId"
+  | "episodes"
+  | "updatedAt"
+>;
