@@ -5,33 +5,32 @@ import React, { useState } from "react";
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-
-enum NavItem {
-  Create = "create",
-  Feed = "feed",
-  Profile = "profile",
-}
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
-    id: NavItem.Create,
+    id: "create",
     icon: <Wand2 className="size-4 sm:size-5" />,
     label: "Create",
   },
   {
-    id: NavItem.Feed,
+    id: "feed",
     icon: <Radio className="size-4 sm:size-5" />,
     label: "Feed",
   },
   {
-    id: NavItem.Profile,
+    id: "profile",
     icon: <User className="size-4 sm:size-5" />,
     label: "Profile",
   },
 ];
 
 const Navbar = () => {
-  const [selected, setSelected] = useState<NavItem>(NavItem.Create);
+  const path = usePathname();
+  const [selected, setSelected] = useState<string>(
+    path.split("/")[1] || "create"
+  );
+  console.log("Selected path:", selected);
 
   return (
     <Dock
