@@ -10,7 +10,7 @@ import { Session } from "next-auth";
 import { useState } from "react";
 import { toast } from "sonner";
 import { error } from "@/utils/sonnerStyles";
-import { useMutation } from "convex/react";
+import { useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { LuLoaderCircle } from "react-icons/lu";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ const IdeaInput = ({ session }: { session: Session }) => {
   const [idea, setIdea] = useState<string>("");
   const [toastMessage, setToastMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const createPodcast = useMutation(api.podcasts.mutations.createPodcast);
+  const createPodcast = useAction(api.podcasts.actions.createPodcastAction);
   const router = useRouter();
 
   const handleCreate = async () => {
