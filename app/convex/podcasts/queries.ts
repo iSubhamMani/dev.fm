@@ -42,3 +42,14 @@ export const getPublishedPodcastsByQuery = query({
       .take(10);
   },
 });
+
+export const getPublishedPodcastById = query({
+  args: { podcastId: v.id("podcasts") },
+  handler: async (ctx, args) => {
+    const podcast = await ctx.db.get(args.podcastId);
+    if (!podcast || podcast.status !== "published") {
+      throw new Error("Podcast not found or not published");
+    }
+    return podcast;
+  },
+});
