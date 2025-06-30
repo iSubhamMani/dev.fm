@@ -21,7 +21,7 @@ export const getAllDrafts = query({
   },
 });
 
-export const geLatestPublishedPodcasts = query({
+export const getLatestPublishedPodcasts = query({
   handler: async (ctx) => {
     return await ctx.db
       .query("podcasts")

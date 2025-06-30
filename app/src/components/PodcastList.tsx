@@ -5,12 +5,13 @@ import { api } from "../../convex/_generated/api";
 import { Skeleton } from "./ui/skeleton";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
-import { Clock, Play, Rocket, User } from "lucide-react";
+import { CirclePlay, Clock, Rocket, User } from "lucide-react";
 import { useMemo } from "react";
 import { PodcastData } from "@/models/Podcast";
+import { useRouter } from "next/navigation";
 
 const PodcastList = () => {
-  const data = useQuery(api.podcasts.queries.geLatestPublishedPodcasts);
+  const data = useQuery(api.podcasts.queries.getLatestPublishedPodcasts);
   const podcastData = useMemo(() => {
     return (
       data &&
@@ -29,6 +30,7 @@ const PodcastList = () => {
       })
     );
   }, [data]);
+  const router = useRouter();
 
   const isLoading = data === undefined;
   const error = data === null;
@@ -41,7 +43,7 @@ const PodcastList = () => {
       <div className="flex justify-center space-x-6 my-6">
         {isLoading && <Loading className="w-1/2 h-96" />}
         {!isLoading && !error && podcastData && podcastData.length > 0 && (
-          <LatestCard podcast={podcastData[0]} />
+          <LatestCard router={router} podcast={podcastData[0]} />
         )}
         <div className="w-1/3 space-y-4">
           {isLoading && (
@@ -56,7 +58,11 @@ const PodcastList = () => {
             podcastData
               .slice(1, 4)
               .map((podcast) => (
-                <LatestCardColumn key={podcast._id} podcast={podcast} />
+                <LatestCardColumn
+                  router={router}
+                  key={podcast._id}
+                  podcast={podcast}
+                />
               ))}
         </div>
       </div>
@@ -72,9 +78,18 @@ const Loading = ({ className }: { className: string }) => {
   );
 };
 
-const LatestCard = ({ podcast }: { podcast: PodcastData }) => {
+const LatestCard = ({
+  podcast,
+  router,
+}: {
+  podcast: PodcastData;
+  router: ReturnType<typeof useRouter>;
+}) => {
   return (
-    <Card className="p-0 rounded-md w-1/2 h-64 shadow-xl border border-neutral-700 overflow-hidden cursor-pointer">
+    <Card
+      onClick={() => router.push(`/podcast/${podcast._id}`)}
+      className="p-0 rounded-md w-1/2 h-64 shadow-xl border border-neutral-700 overflow-hidden cursor-pointer"
+    >
       <CardContent className="p-0 h-full">
         <div className="relative h-full w-full overflow-hidden group bg-neutral-800">
           <Image
@@ -90,7 +105,7 @@ const LatestCard = ({ podcast }: { podcast: PodcastData }) => {
 
           <div className="absolute bottom-0 pb-4 pt-6 bg-gradient-to-t from-black/90 to-transparent w-full">
             <div className="flex items-center">
-              <Play className="size-5 text-pink-400 opacity-0 -translate-x-6 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 ease-in-out" />
+              <CirclePlay className="size-5 text-white opacity-0 -translate-x-6 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 ease-in-out" />
               <div className="flex-1 flex justify-between items-end pr-4">
                 <p
                   className="transition-transform text-xl font-medium text-white
@@ -104,7 +119,7 @@ const LatestCard = ({ podcast }: { podcast: PodcastData }) => {
                 </p>
               </div>
             </div>
-            <p className="text-pink-200 text-sm items-center pl-4 flex">
+            <p className="text-pink-200 mt-1 text-sm items-center pl-4 flex">
               <Clock className="size-4 mr-1" />
               {podcast.episodes?.length} episodes
             </p>
@@ -115,9 +130,18 @@ const LatestCard = ({ podcast }: { podcast: PodcastData }) => {
   );
 };
 
-const LatestCardColumn = ({ podcast }: { podcast: PodcastData }) => {
+const LatestCardColumn = ({
+  podcast,
+  router,
+}: {
+  podcast: PodcastData;
+  router: ReturnType<typeof useRouter>;
+}) => {
   return (
-    <Card className="hover:scale-95  transition-transform duration-300 ease-in-out p-0 relative rounded-md w-full h-28 shadow-xl border border-neutral-700 overflow-hidden cursor-pointer">
+    <Card
+      onClick={() => router.push(`/podcast/${podcast._id}`)}
+      className="hover:scale-95  transition-transform duration-300 ease-in-out p-0 relative rounded-md w-full h-28 shadow-xl border border-neutral-700 overflow-hidden cursor-pointer"
+    >
       {/* Background Image */}
       <div className="absolute inset-0 bg-neutral-800">
         <Image
