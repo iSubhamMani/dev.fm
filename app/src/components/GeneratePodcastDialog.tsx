@@ -54,7 +54,7 @@ const GeneratePodcastDialog = ({
     "idle" | "gettingReady" | "generating" | "completed" | "error"
   >("idle");
   const getPodcastById = useAction(api.podcasts.actions.fetchPodcast);
-  const saveAudioMutation = useMutation(api.podcasts.mutations.saveAudioUrl);
+  const saveAudioMutation = useMutation(api.podcasts.mutations.saveAudio);
 
   const fetchEpisodes = async () => {
     setGenerationState("gettingReady");
@@ -66,7 +66,7 @@ const GeneratePodcastDialog = ({
       throw new Error("Podcast or episodes not found");
     }
     const { episodes } = data;
-    const filteredEpisodes = episodes.filter((e) => !e.audioUrl); // skip episodes that already have audio
+    const filteredEpisodes = episodes.filter((e) => !e.audio?.url); // skip episodes that already have audio
 
     setAudioProcessed({
       total: filteredEpisodes.length,
@@ -78,11 +78,14 @@ const GeneratePodcastDialog = ({
   };
 
   const saveAudio = useCallback(
-    async (audioUrl: string, episode: number) => {
+    async (audioUrl: string, duration: number, episode: number) => {
       const res = await saveAudioMutation({
         podcastId: podcastId as Id<"podcasts">,
         episode,
-        audioUrl,
+        audio: {
+          url: audioUrl,
+          duration,
+        },
       });
       return res;
     },
@@ -102,7 +105,11 @@ const GeneratePodcastDialog = ({
         );
 
         if (res.status === 200) {
-          const isSaved = await saveAudio(res.data.audioUrl, episode.episode);
+          const isSaved = await saveAudio(
+            res.data.audioData.url,
+            res.data.audioData.duration,
+            episode.episode
+          );
           if (isSaved.success) {
             setAudioProcessed((prev) => ({
               ...prev,

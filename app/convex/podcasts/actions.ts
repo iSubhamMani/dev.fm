@@ -14,7 +14,10 @@ type PodcastType = {
         episode: number;
         title: string;
         script: string;
-        audioUrl?: string | undefined;
+        audio?: {
+          url: string;
+          duration: number;
+        };
       }[]
     | undefined;
   updatedAt?: string | undefined;
@@ -49,7 +52,12 @@ export const createPodcastAction = action({
           episode: v.number(),
           title: v.string(),
           script: v.string(),
-          audioUrl: v.optional(v.string()),
+          audio: v.optional(
+            v.object({
+              url: v.string(),
+              duration: v.number(),
+            })
+          ),
         })
       )
     ),

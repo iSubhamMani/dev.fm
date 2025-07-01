@@ -14,7 +14,12 @@ export const createPodcast = mutation({
           episode: v.number(),
           title: v.string(),
           script: v.string(),
-          audioUrl: v.optional(v.string()),
+          audio: v.optional(
+            v.object({
+              url: v.string(),
+              duration: v.number(),
+            })
+          ),
         })
       )
     ),
@@ -47,7 +52,12 @@ export const updatePodcast = mutation({
           episode: v.number(),
           title: v.string(),
           script: v.string(),
-          audioUrl: v.optional(v.string()),
+          audio: v.optional(
+            v.object({
+              url: v.string(),
+              duration: v.number(),
+            })
+          ),
         })
       )
     ),
@@ -72,18 +82,21 @@ export const updatePodcast = mutation({
   },
 });
 
-export const saveAudioUrl = mutation({
+export const saveAudio = mutation({
   args: {
     podcastId: v.id("podcasts"),
     episode: v.number(),
-    audioUrl: v.string(),
+    audio: v.object({
+      url: v.string(),
+      duration: v.number(),
+    }),
   },
   handler: async (ctx, args) => {
     const podcast = await ctx.db.get(args.podcastId);
     if (!podcast || !podcast.episodes) throw new Error("Podcast not found");
 
     const updatedEpisodes = podcast.episodes.map((ep) =>
-      ep.episode === args.episode ? { ...ep, audioUrl: args.audioUrl } : ep
+      ep.episode === args.episode ? { ...ep, audio: args.audio } : ep
     );
 
     await ctx.db.patch(args.podcastId, { episodes: updatedEpisodes });
@@ -120,9 +133,8 @@ export const publishPodcast = mutation({
         script:
           podcast.episodes?.find((ep) => ep.episode === et.episode)?.script ||
           "",
-        audioUrl:
-          podcast.episodes?.find((ep) => ep.episode === et.episode)?.audioUrl ||
-          "",
+        audio: podcast.episodes?.find((ep) => ep.episode === et.episode)
+          ?.audio || { url: "", duration: 0 },
       })),
       coverImage: args.coverImage,
       status: args.status,

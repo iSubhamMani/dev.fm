@@ -16,7 +16,12 @@ export default defineSchema({
           episode: v.number(),
           title: v.string(),
           script: v.string(),
-          audioUrl: v.optional(v.string()),
+          audio: v.optional(
+            v.object({
+              url: v.string(),
+              duration: v.number(),
+            })
+          ),
         })
       )
     ),

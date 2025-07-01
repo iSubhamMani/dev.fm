@@ -14,7 +14,10 @@ export interface Podcast {
     episode: number;
     title: string;
     script: string;
-    audioUrl?: string;
+    audio?: {
+      url: string;
+      duration: number;
+    };
   }[];
   scriptGenerated?: boolean;
   updatedAt?: string;

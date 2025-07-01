@@ -67,7 +67,7 @@ const ReviewScript = ({
   const updateAction = useMutation(api.podcasts.mutations.updatePodcast);
 
   const hasAllAudioUrls = useMemo(
-    () => podcastDetails?.episodes?.every((ep) => ep.audioUrl),
+    () => podcastDetails?.episodes?.every((ep) => ep.audio?.url),
     [podcastDetails]
   );
 
