@@ -86,6 +86,7 @@ app.post("/api/generateAudio", async (req: Request, res: Response) => {
 
     const data =
       response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+
     if (!data || typeof data !== "string") {
       res.status(400).json({ message: "Invalid audio data" });
       return;
@@ -109,7 +110,12 @@ app.post("/api/generateAudio", async (req: Request, res: Response) => {
     // Delete file after upload
     fs.unlinkSync(filePath);
 
-    res.status(200).json({ audioUrl: uploadResult.secure_url });
+    const audioMetadata = {
+      url: uploadResult.secure_url,
+      duration: uploadResult.video.duration,
+    };
+
+    res.status(200).json({ audioData: audioMetadata });
   } catch (error) {
     console.error("Error generating audio:", error);
     res.status(500).json({
