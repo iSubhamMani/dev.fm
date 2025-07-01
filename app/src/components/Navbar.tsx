@@ -1,7 +1,7 @@
 "use client";
 
 import { Radio, User, Wand2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -27,10 +27,15 @@ const navItems = [
 
 const Navbar = () => {
   const path = usePathname();
-  const [selected, setSelected] = useState<string>(
-    path.split("/")[1] || "create"
-  );
-  console.log("Selected path:", selected);
+  const currentPath = path.split("/")[1];
+  const defaultSelected =
+    currentPath === "podcast" ? "feed" : currentPath || "create";
+  const [selected, setSelected] = useState<string>(defaultSelected);
+
+  useEffect(() => {
+    const currentPath = path.split("/")[1];
+    setSelected(currentPath === "podcast" ? "feed" : currentPath || "create");
+  }, [path]);
 
   return (
     <Dock
